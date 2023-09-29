@@ -1,6 +1,5 @@
 <template>
     <div class="modal-mask">
-      <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
@@ -16,8 +15,7 @@
 
           <div class="modal-footer">
             <slot name="footer">
-
-              <Button class="modal-default-button" @click="$emit('closeModal', true)">
+              <Button type="submit" value="Submit" class="modal-default-button" @click="$emit('closeModal', true)">
                 apply
               </Button>
               <Button class="modal-default-button" @click="$emit('closeModal', false)">
@@ -25,7 +23,6 @@
               </Button>
             </slot>
           </div>
-        </div>
       </div>
     </div>
 </template>
@@ -37,30 +34,38 @@ import Button from "./buttons/Button.vue";
 
 <style scoped lang="scss">
 .modal-mask {
-  position: fixed;
-  z-index: 9998;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
-  display: table;
   transition: opacity 0.3s ease;
-  .modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
     .modal-container {
-      width: 400px;
-      margin: 0px auto;
-      padding: 20px 30px;
-      background-color: #fff;
+      //max-width: 800px;
+      margin: auto;
+      padding: 20px 50px;
       border-radius: 15px 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      animation: scale-on 200ms forwards;
       transition: all 0.3s ease;
       font-family: Helvetica, Arial, sans-serif;
+      max-height: 90vh;
+      max-width: 500px;
+      background-color: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 30px 0 rgba(#000, 0.25);
+      @media (max-width: 600px) {
+        width: 90%;
+      }
       .modal-header {
         margin-top: 0;
         font-size: 20px;
+        text-align: center;
         color: #646cff;
       }
       .modal-body {
@@ -69,26 +74,21 @@ import Button from "./buttons/Button.vue";
       .modal-footer {
         display: flex;
         justify-content: end;
-        margin: 20px 0 0 0;
       }
     }
-  }
 }
 
 .modal-default-button {
   float: right;
 }
-.modal-enter {
-  opacity: 0;
+
+@keyframes scale-on {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 </style>

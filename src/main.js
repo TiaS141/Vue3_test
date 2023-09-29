@@ -1,5 +1,12 @@
 import { createApp } from 'vue'
 import './style.css'
-import App from './App.vue'
+import Root from './App.vue'
+import maska from "maska";
+// import phone from "./components/phone.vue";
 
-createApp(App).mount('#app')
+const app = createApp(Root)
+
+app.use(maska);
+// app.component("phone", phone);
+
+app.mount('#app')
